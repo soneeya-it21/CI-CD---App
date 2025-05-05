@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  backend:
+    image: soneeya/ci-cd-backend:latest
+    container_name: flask-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=development
+    restart: always
+
+  frontend:
+    image: soneeya/ci-cd-frontend:latest
+    container_name: react-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      - REACT_APP_BACKEND_URL=http://localhost:5000
+    restart: always
